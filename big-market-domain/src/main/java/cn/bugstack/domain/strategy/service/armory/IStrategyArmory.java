@@ -1,9 +1,7 @@
 package cn.bugstack.domain.strategy.service.armory;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
- * @description 策略装配库(兵工厂)，负责初始化策略计算
- * @create 2023-12-23 09:44
+ * @description 策略装配库，负责初始化策略计算
  */
 public interface IStrategyArmory {
 
