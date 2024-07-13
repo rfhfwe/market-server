@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 策略服务仓储实现
- * @create 2023-12-23 10:33
  */
 @Repository
 public class StrategyRepository implements IStrategyRepository {
@@ -118,5 +116,14 @@ public class StrategyRepository implements IStrategyRepository {
                 .ruleValue(strategyRuleRes.getRuleValue())
                 .ruleDesc(strategyRuleRes.getRuleDesc())
                 .build();
+    }
+
+    @Override
+    public String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel) {
+        StrategyRule strategyRule = new StrategyRule();
+        strategyRule.setStrategyId(strategyId);
+        strategyRule.setAwardId(awardId);
+        strategyRule.setRuleModel(ruleModel);
+        return strategyRuleDao.queryStrategyRuleValue(strategyRule);
     }
 }
