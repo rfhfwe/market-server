@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
+ * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 【抽奖前规则】黑名单用户过滤规则
+ * @create 2024-01-06 13:19
  */
 @Slf4j
 @Component
@@ -35,10 +37,10 @@ public class RuleBackListLogicFilter implements ILogicFilter<RuleActionEntity.Ra
         String[] splitRuleValue = ruleValue.split(Constants.COLON);
         Integer awardId = Integer.parseInt(splitRuleValue[0]);
 
-        // 过滤其他规则  100:user001,user002,user003
+        // 过滤其他规则
         String[] userBlackIds = splitRuleValue[1].split(Constants.SPLIT);
         for (String userBlackId : userBlackIds) {
-            if (userId.equals(userBlackId)) {  // 如果找到我的ID，说明被黑名单过滤了
+            if (userId.equals(userBlackId)) {
                 return RuleActionEntity.<RuleActionEntity.RaffleBeforeEntity>builder()
                         .ruleModel(DefaultLogicFactory.LogicModel.RULE_BLACKLIST.getCode())
                         .data(RuleActionEntity.RaffleBeforeEntity.builder()

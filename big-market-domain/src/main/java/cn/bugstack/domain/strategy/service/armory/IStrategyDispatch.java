@@ -1,5 +1,10 @@
 package cn.bugstack.domain.strategy.service.armory;
 
+/**
+ * @author Fuzhengwei bugstack.cn @小傅哥
+ * @description 策略抽奖调度
+ * @create 2023-12-31 15:15
+ */
 public interface IStrategyDispatch {
 
     /**
@@ -11,4 +16,5 @@ public interface IStrategyDispatch {
     Integer getRandomAwardId(Long strategyId);
 
     Integer getRandomAwardId(Long strategyId, String ruleWeightValue);
+
 }
