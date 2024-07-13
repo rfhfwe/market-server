@@ -4,8 +4,8 @@ import cn.bugstack.domain.strategy.model.entity.RaffleAwardEntity;
 import cn.bugstack.domain.strategy.model.entity.RaffleFactorEntity;
 import cn.bugstack.domain.strategy.service.IRaffleStrategy;
 import cn.bugstack.domain.strategy.service.armory.IStrategyArmory;
-import cn.bugstack.domain.strategy.service.rule.impl.RuleLockLogicFilter;
-import cn.bugstack.domain.strategy.service.rule.impl.RuleWeightLogicFilter;
+import cn.bugstack.domain.strategy.service.rule.chain.impl.RuleWeightLogicChain;
+import cn.bugstack.domain.strategy.service.rule.filter.impl.RuleLockLogicFilter;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -18,7 +18,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.annotation.Resource;
 
 /**
+ * @author Fuzhengwei bugstack.cn @小傅哥
  * @description 抽奖策略测试
+ * @create 2024-01-06 13:28
  */
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -30,9 +32,9 @@ public class RaffleStrategyTest {
     @Resource
     private IRaffleStrategy raffleStrategy;
     @Resource
-    private RuleWeightLogicFilter ruleWeightLogicFilter;
-    @Resource
     private RuleLockLogicFilter ruleLockLogicFilter;
+    @Resource
+    private RuleWeightLogicChain ruleWeightLogicChain;
 
     @Before
     public void setUp() {
@@ -42,8 +44,9 @@ public class RaffleStrategyTest {
         log.info("测试结果：{}", strategyArmory.assembleLotteryStrategy(100003L));
 
         // 通过反射 mock 规则中的值
-        ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 4500L);
         ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 10L);
+        // 通过反射 mock 规则中的值
+        ReflectionTestUtils.setField(ruleWeightLogicChain, "userScore", 4900L);
     }
 
     @Test
@@ -79,7 +82,7 @@ public class RaffleStrategyTest {
     @Test
     public void test_raffle_center_rule_lock(){
         RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
-                .userId("djlan")
+                .userId("xiaofuge")
                 .strategyId(100003L)
                 .build();
 
